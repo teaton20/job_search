@@ -30,7 +30,13 @@ A custom job search tool that, given a link to a job posting, auto-populates a s
 2. Run `job_scraper.py` with a job listing URL of your choice.
 3. Ensure `job_search.csv` is syncing to Google Drive.
 4. Link your Google Sheet to the CSV using the provided Apps Script.
-5. Watch the magic happen ✨
+5. You're ready to go! The Google Sheet should auto-populate every 5 minutes if there is new content added to the CSV.
+
+## In This Repo
+
+- `job_search.csv`: The blank CSV canvas for the spreadsheet to keep track of jobs with.
+- `job_search.py`: The Python file for executing the tool.
+- `job_search.ipynb`: The same Python code, but in a Jupyter notebook if that is preferred.
 
 ## To-Do / Wishlist
 
