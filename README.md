@@ -13,7 +13,7 @@ A custom job search tool that, given a link to a job posting, auto-populates a s
 - Appends structured data to a CSV (`job_search.csv`)
 - Auto-syncs CSV to Google Drive
 - Uses Google Sheets Apps Script to:
-  - Auto-import new rows every 5 minutes
+  - Auto-import new rows at any desired frequency
   - Prevent overwriting manual edits
   - Update only when data changes
 
