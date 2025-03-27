@@ -26,6 +26,12 @@ def get_glassdoor_link(company):
     return None
 
 
+def extract_company_from_url(url):
+    domain = urlparse(url).netloc
+    company_name = domain.split('.')[-2]  # e.g., intuit.com -> 'intuit'
+    return company_name.capitalize()
+
+
 def scrape_job_posting(url):
     response = requests.get(url, headers={"User-Agent": "Mozilla/5.0"})
     if response.status_code != 200:
@@ -38,12 +44,14 @@ def scrape_job_posting(url):
     job_title_tag = soup.find(['h1', 'h2'])
     job_title = job_title_tag.text.strip() if job_title_tag else None
 
-    # Company name
+    # Company name from page or fallback to domain
     company = None
     for tag in soup.find_all(['div', 'span', 'p']):
         if 'company' in tag.get('class', []) or 'employer' in tag.get('class', []):
             company = tag.text.strip()
             break
+    if not company:
+        company = extract_company_from_url(url)
 
     # Location
     location = None
@@ -71,7 +79,7 @@ def scrape_job_posting(url):
     # Glassdoor link
     glassdoor_link = get_glassdoor_link(company) if company else None
 
-    # Date applied (today) and follow-up date (two weeks from today)
+    # Dates
     date_applied = datetime.today().strftime('%Y-%m-%d')
     follow_up_date = (datetime.today() + timedelta(weeks=2)).strftime('%Y-%m-%d')
 
@@ -86,7 +94,6 @@ def scrape_job_posting(url):
         "glassdoor": glassdoor_link,
         "resume_used": None,
         "cover_letter": None,
-        "referral": None,
         "date_applied": date_applied,
         "follow_up_date": follow_up_date,
         "interview": None
