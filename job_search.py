@@ -94,6 +94,7 @@ def scrape_job_posting(url):
         "glassdoor": glassdoor_link,
         "resume_used": None,
         "cover_letter": None,
+        "referral": None,
         "date_applied": date_applied,
         "follow_up_date": follow_up_date,
         "interview": None
